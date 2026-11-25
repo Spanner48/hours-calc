@@ -1,7 +1,9 @@
 from datetime import datetime, timedelta
 
+
 def parse_time(time_str):
     return datetime.strptime(time_str, "%H:%M")
+
 
 def time_difference(time1_str, time2_str):
     t1 = parse_time(time1_str)
@@ -20,12 +22,24 @@ def time_difference(time1_str, time2_str):
     return hours, minutes
 
 
+def ask_time(prompt):
+    while True:
+        value = input(prompt).strip()
+        try:
+            parse_time(value)
+            return value
+        except ValueError:
+            print("Please use HH:MM format, e.g. 09:30")
+
+
 if __name__ == "__main__":
     print("Time difference Calc")
-    time1 = input("Enter Time 1 (HH:MM): ")
-    time2 = input("Enter Time 2 (HH:MM): ")
+    time1 = ask_time("Enter Time 1 (HH:MM): ")
+    time2 = ask_time("Enter Time 2 (HH:MM): ")
 
     h, m = time_difference(time1, time2)
 
     print(f"\nBetween {time1} and {time2}:")
     print(f"{h} hour(s), {m} minute(s)")
+
+    input("\nPress Enter to exit...")
